@@ -24,14 +24,14 @@ class BookCrudController extends AbstractCrudController
         return [
             TextField::new('title', 'Titre')->setColumns(8),
             AssociationField::new('category', 'Catégorie')->setColumns(8)->autocomplete(),
-            TextEditorField::new('description', 'Description')->setColumns(8),
+            TextEditorField::new('description', 'Description')->setColumns(8)->hideOnIndex(),
             DateField::new('publishAt','Année de publication')->setColumns(8),
-            TextField::new('author', 'Auteur')->setColumns(8),
+            TextField::new('author', 'Auteur')->setColumns(8)->hideOnIndex(),
             NumberField::new('nbPage', 'Nombre de page')->setColumns(8),
             TextField::new('image')->setColumns(8),
-            NumberField::new('nbExemplaire', 'Nombre d\'exemplaire')->setColumns(8),
-            BooleanField::new('isActive', 'Activé ?')->setColumns(8),
-            AssociationField::new('user', 'Créé par : ')->setColumns(8),
+            NumberField::new('nbExemplaire', 'Nombre d\'exemplaire')->setColumns(8)->hideOnIndex(),
+            BooleanField::new('isActive', 'Activé ?')->setColumns(8)->onlyOnForms(),
+            AssociationField::new('user', 'Créé par : ')->setColumns(8)->hideOnIndex(),
         ];
     }
 
