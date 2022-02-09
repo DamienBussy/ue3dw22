@@ -3,42 +3,43 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <br><br><br><br>
-    <h1>Category index</h1>
-        <div class="mt-5">
-               nombre totale de catégorie : {{ categories.getTotalItemCount }}
+    <div class="container mt-5">
+        <h1>Category index</h1>
+            <div class="mt-5">
+                Nombre total de catégories : {{ categories.getTotalItemCount }}
+            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+                    <td>
+                        <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-primary">show</a>
+                        <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-primary">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(categories) }}
         </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>{{ category.description }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <div class="navigation">
-        {{ knp_pagination_render(categories) }}
+        <a href="{{ path('category_new') }}" class="btn btn-primary">Create new</a>
     </div>
-
-    <a href="{{ path('category_new') }}">Create new</a>
 {% endblock %}

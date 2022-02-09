@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/category")
+ * @Route("member/category")
  */
 class CategoryController extends AbstractController
 {
