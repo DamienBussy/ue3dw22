@@ -5,8 +5,39 @@
 {% block body %}
 <div class="container mt-4 col-lg-7 col-md-7">
     <div class="jumbotron text-center mx-auto">
-        <h1>Livres disponibles</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit vel ipsum maximus blandit. Sed elementum, massa at scelerisque condimentum, mi diam pulvinar ipsum, sed fringilla purus justo eu ligula. Nullam sagittis diam ac blandit malesuada.</p>
+        <div class="container mt-5">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Nombre d'exemplaire</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ book.title }}</th>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.nbExemplaire }}</td>
+                        <td>
+                            {% set isEmprunt = false %}
+                            {% for emprunt in book.emprunts %}
+                                {% if emprunt.user == app.user %}
+                                    <a href="{{ path('livre_retourner', {'id' :emprunt.id}) }}" class="btn btn-danger">Rendre</a></td>
+                                    {% set isEmprunt = true %}
+                                {% endif %}
+                            {% endfor %}
+                        {% if isEmprunt == false %}
+                            <a href="{{ path('livre_emprunter', {'id' :book.id}) }}" class="btn btn-secondary">Emprunter</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}
